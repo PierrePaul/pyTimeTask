@@ -1,30 +1,22 @@
 #! /usr/bin/env python2.7
-import urllib2, sys, re, base64, pdb, json
+import sys, task, getpass
 
-url = 'https://api.myintervals.com/task/'
 user = '2nnztrtz0ue'
-password = 'test'
-
-taskId = input("Task id?\n")
-url = url + '?localid=' + str(taskId)
-
-print url
-
-request = urllib2.Request(url)
-
-base64string = base64.encodestring('%s:%s' % (user, password))[:-1]
-authheader =  "Basic %s" % base64string
-request.add_header("Authorization", authheader)
-request.add_header("Accept", "application/json")
+password = getpass.getpass("Password : ")
 
 try:
-	handle = urllib2.urlopen(request)
-except IOError, e:                  # here we shouldn't fail if the username/password is right
-	print "It looks like the username or password is wrong."
-	print e
-	sys.exit(1)
+	action = sys.argv[1]
+except Exception:
+	action = raw_input("Type of commands available : task\n")
 
-jsonObject = json.load(handle)
+if str(action) == "task":
+	try:
+		urlString = task.takeCare()
+		jsonObject = utils.startConnect(urlString)
+		task.formatOutput(jsonObject)
+	except Exception e:
+		print e
+		sys.exit(1)
+elif action == 
+jsonObject = task.formatOutput(jsonObject)
 
-print json.dumps(jsonObject, indent=4)
-handle.close()
