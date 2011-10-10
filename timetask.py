@@ -1,5 +1,6 @@
 #! /usr/bin/env python2.7
-import sys, task, getpass, utils
+import sys, getpass, utils
+import task, timer
 
 user = '2nnztrtz0ue'
 password = getpass.getpass("Password : ")
@@ -18,7 +19,8 @@ if str(action) == "task":
 		print e
 		sys.exit(1)
 elif action == "timer":
+	urlString = timer.takeCare()
+	
 	sys.exit(1)
  
-jsonObject = task.formatOutput(jsonObject)
 
