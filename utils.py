@@ -1,6 +1,6 @@
-import sys, base64, urllib2
+import sys, base64, urllib2, json
 
-def startConnection(urlString):
+def startConnection(urlString, user, password):
 	url = 'https://api.myintervals.com/'
 
 	url = url + urlString

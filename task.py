@@ -1,4 +1,4 @@
-import json, HTMLParser, sys
+import json, HTMLParser, sys, utils
 
 def commands():
 	commands = ['search', 'commands', 'details']
