@@ -7,7 +7,7 @@ utils.initConnection()
 try:
 	action = sys.argv[1]
 except Exception:
-	action = raw_input("Type of commands available : task\n")
+	action = raw_input("Type of commands available : task, timer\n")
 
 if str(action) == "task":
 	try:

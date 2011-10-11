@@ -2,7 +2,7 @@ import json, HTMLParser, sys, datetime, time, dateutil.parser, string
 import utils, me
 
 def commands():
-	commands = ['start', 'stop', 'current']
+	commands = [ 'current']
 	return commands
 
 def start(string):
@@ -36,6 +36,8 @@ def takeCare():
 	try:
 		requestedCommand = sys.argv[2]
 	except Exception:
+		print "Available commands : "
+		print commands()
 		requestedCommand = raw_input("Command ?\n")
 	
 	if requestedCommand == "start":
