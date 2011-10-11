@@ -1,4 +1,5 @@
-import json, HTMLParser, sys, utils
+import json, HTMLParser, sys, datetime, time, dateutil.parser, string
+import utils, me
 
 def commands():
 	commands = ['start', 'stop', 'current']
@@ -12,22 +13,31 @@ def stop():
 
 	return urlString
 
-def current():
-
+def current(personId):
+	urlString = 'timer/?personid='+personId
 	return urlString
 
 
 def formatOutput(jsonObject):
-	for task in jsonObject['task']:
-		#print json.dumps(task, indent=4)
-		print task['localid'] + " : " + HTMLParser.HTMLParser().unescape(task['summary']) + "\n\n"
+	#print json.dumps(jsonObject, indent=4)
+	for uniqueTimer in jsonObject['timer']:
+		if uniqueTimer['isrunning'] == 't':
+			now = datetime.datetime.utcnow()
+			started = dateutil.parser.parse(uniqueTimer['starttime'], ignoretz=True)
+			timeSpent = now - started
+			
+			timeSpent = str(timeSpent)
+			timeSpent = string.split(timeSpent, '.')
+			print uniqueTimer['tasklocalid'] + ' : ' + HTMLParser.HTMLParser().unescape(uniqueTimer['task'])
+			print "Been running for " + timeSpent[0]
 	
 def takeCare():
+	urlString = ""
 	try:
 		requestedCommand = sys.argv[2]
 	except Exception:
 		requestedCommand = raw_input("Command ?\n")
-
+	
 	if requestedCommand == "start":
 		try:
 			taskLocalId = sys.argv[3]
@@ -36,7 +46,7 @@ def takeCare():
 
 		urlString = start(str(taskLocalId))
 
-	elif requestedCommand == "stop" :
+	elif requestedCommand == "stop":
 		try:
 			taskLocalId = sys.argv[3]
 		except:
@@ -44,13 +54,9 @@ def takeCare():
 
 		urlString = details(taskLocalId)
 
-	elif requestedCommand == "current" :
-		try:
-			personId = me.current()
-			taskId = current(personId)
-			print "Current task Id : " + str(taskId)
-		except:
-			personId = 0
+	elif requestedCommand == "current":
+		personId = me.personId()
+		urlString = current(personId)
 
 	else:
 		print "Invalid command"

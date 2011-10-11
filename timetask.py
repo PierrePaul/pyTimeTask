@@ -1,9 +1,8 @@
-#! /usr/bin/env python2.7
-import sys, getpass, utils
+#! /usr/bin/env python
+import sys, utils
 import task, timer
 
-user = '2nnztrtz0ue'
-password = getpass.getpass("Password : ")
+utils.initConnection()
 
 try:
 	action = sys.argv[1]
@@ -13,14 +12,16 @@ except Exception:
 if str(action) == "task":
 	try:
 		urlString = task.takeCare()
-		jsonObject = utils.startConnection(urlString, user, password)
+		jsonObject = utils.startConnection(urlString)
 		task.formatOutput(jsonObject)
 	except Exception, e:
 		print e
 		sys.exit(1)
+
 elif action == "timer":
 	urlString = timer.takeCare()
-	
+	jsonObject = utils.startConnection(urlString)
+	timer.formatOutput(jsonObject)	
 	sys.exit(1)
- 
+
 

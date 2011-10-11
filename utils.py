@@ -1,6 +1,12 @@
-import sys, base64, urllib2, json
+import sys, base64, urllib2, json, getpass
 
-def startConnection(urlString, user, password):
+def initConnection():
+	global user
+	global password
+	user = '2nnztrtz0ue'
+	password = getpass.getpass("Password : ")
+
+def startConnection(urlString):
 	url = 'https://api.myintervals.com/'
 
 	url = url + urlString
