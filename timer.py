@@ -30,7 +30,7 @@ def formatOutput(jsonObject):
 				
 				timeSpent = str(timeSpent)
 				timeSpent = string.split(timeSpent, '.')
-				print uniqueTimer['tasklocalid'] + ' : ' + HTMLParser.HTMLParser().unescape(uniqueTimer['task']).encode('ascii', 'ignore')
+				print uniqueTimer['tasklocalid'] + ' : ' + HTMLParser.HTMLParser().unescape(uniqueTimer['task']).encode('ascii','replace') 
 				#print uniqueTimer['tasklocalid'] + ' : ' + uniqueTimer['task']
 				print "Been running for " + timeSpent[0]
 
