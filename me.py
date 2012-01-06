@@ -1,35 +1,35 @@
 import json, HTMLParser, sys, utils
 
 def commands():
-	commands = ['details','personId']
-	return commands
+    commands = ['details','personId']
+    return commands
 
 def details():
-	urlString = "me/"
-	return urlString
-	
+    urlString = "me/"
+    return urlString
+    
 def personId():
-	urlString = details()
-	jsonObject = utils.startConnection(urlString)
-	return jsonObject['personid']
+    urlString = details()
+    jsonObject = utils.startConnection(urlString)
+    return jsonObject['personid']
 
 def formatOutput(jsonObject):
-	print json.dumps(jsonObject, indent=4)
-	
+    print json.dumps(jsonObject, indent=4)
+    
 def takeCare():
-	try:
-		requestedCommand = sys.argv[2]
-	except Exception:
-		requestedCommand = raw_input("Command ?\n")
+    try:
+        requestedCommand = sys.argv[2]
+    except Exception:
+        requestedCommand = raw_input("Command ?\n")
 
-	if requestedCommand == "details":
-		urlString = details()
+    if requestedCommand == "details":
+        urlString = details()
 
-	elif requestedCommand == "current":
-		urlString = current()
+    elif requestedCommand == "current":
+        urlString = current()
 
-	else:
-		print "Invalid command"
-		sys.exit(1)
+    else:
+        print "Invalid command"
+        sys.exit(1)
 
-	return urlString	
+    return urlString    

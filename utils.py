@@ -1,59 +1,59 @@
 import sys, base64, urllib2, json, getpass
 
 def initConnection():
-	global user
-	global password
-	global url
-	user = '2nnztrtz0ue'
-	password = getpass.getpass("Password : ")
-	url = 'https://api.myintervals.com/'
+    global user
+    global password
+    global url
+    user = '2nnztrtz0ue'
+    password = getpass.getpass("Password : ")
+    url = 'https://api.myintervals.com/'
 
 def startConnection(urlString):
-	urlRequest = url + urlString
-	request = urllib2.Request(urlRequest)
+    urlRequest = url + urlString
+    request = urllib2.Request(urlRequest)
 
-	authHeader = encodeHeader()
+    authHeader = encodeHeader()
 
-	request.add_header("Authorization", authHeader)
-	request.add_header("Accept", "application/json")
+    request.add_header("Authorization", authHeader)
+    request.add_header("Accept", "application/json")
 
-	try:
-		handle = urllib2.urlopen(request)
-	except IOError, e:                  # here we shouldn't fail if the username/password is right
-		print "It looks like the username or password is wrong."
-		print e
-		sys.exit(1)
+    try:
+        handle = urllib2.urlopen(request)
+    except IOError, e:                  # here we shouldn't fail if the username/password is right
+        print "It looks like the username or password is wrong."
+        print e
+        sys.exit(1)
 
-	jsonObject = json.load(handle)
-	handle.close()
-	return jsonObject
+    jsonObject = json.load(handle)
+    handle.close()
+    return jsonObject
 
 def postConnection(urlString, data):
-	urlRequest = url + urlString
-	request = urllib2.Request(urlRequest)
+    urlRequest = url + urlString
+    request = urllib2.Request(urlRequest)
 
-	data = json.load(data)
-	authHeader = encodeHeader()
+    data = json.load(data)
+    authHeader = encodeHeader()
 
-	print json.dumps(data, indent=4)
-	
-	request.add_data(json.dumps(data))
-	request.add_header("Authorization", authHeader)
-	request.add_header("Accept", "application/json")
+    print json.dumps(data, indent=4)
+    
+    request.add_data(json.dumps(data))
+    request.add_header("Authorization", authHeader)
+    request.add_header("Accept", "application/json")
 
-	try:
-		handle = urllib2.urlopen(request)
-	except IOError, e:
-		print "It looks like the username or password is wrong"
-		print e
-		sys.exit(1)
+    try:
+        handle = urllib2.urlopen(request)
+    except IOError, e:
+        print "It looks like the username or password is wrong"
+        print e
+        sys.exit(1)
 
-	jsonObject = json.load(handle)
-	handle.close()
-	
-	
+    jsonObject = json.load(handle)
+    handle.close()
+    
+    
 def encodeHeader():
-	base64string = base64.encodestring('%s:%s' % (user, password))[:-1]
-	authheader =  "Basic %s" % base64string
-	return authheader
+    base64string = base64.encodestring('%s:%s' % (user, password))[:-1]
+    authheader =  "Basic %s" % base64string
+    return authheader
 
