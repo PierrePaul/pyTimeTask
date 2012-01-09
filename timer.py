@@ -1,4 +1,4 @@
-import json, HTMLParser, sys, datetime, time, dateutil.parser, string, urllib2
+import json, parse, sys, datetime, time, dateutil.parser, string, urllib2
 import utils, me
 requestedCommand = ''
 
@@ -7,11 +7,9 @@ def commands():
     return  commands
 
 def start(string):
-
     return urlString	
 
 def stop():
-
     return urlString
 
 def current(personId):
@@ -31,9 +29,9 @@ def formatOutput(jsonObject):
                 timeSpent = str(timeSpent)
                 timeSpent = string.split(timeSpent, '.')
                 try:
-                    print uniqueTimer['tasklocalid'] + ' : ' + HTMLParser.HTMLParser().unescape(uniqueTimer['task'])
+                    print uniqueTimer['tasklocalid'] + ' : ' + parse.stripTags(uniqueTimer['task'])
                 except:
-                    print uniqueTimer['tasklocalid'] + ' : ' + HTMLParser.HTMLParser().unescape(uniqueTimer['task']).encode('ascii','replace') 
+                    print uniqueTimer['tasklocalid'] + ' : ' + parse.stripTags(uniqueTimer['task']).encode('ascii','replace') 
                 #print uniqueTimer['tasklocalid'] + ' : ' + uniqueTimer['task']
                 print "Been running for " + timeSpent[0]
                 

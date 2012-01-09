@@ -1,4 +1,4 @@
-import json, HTMLParser, sys, utils
+import json, parse, sys, utils
 requestedCommand = '';
 
 def commands():
@@ -16,7 +16,10 @@ def details(taskId):
 def formatOutput(jsonObject):
     for task in jsonObject['task']:
         #print json.dumps(task, indent=4)
-        print task['localid'] + " : " + HTMLParser.HTMLParser().unescape(task['summary']) + "\n\n"
+        try:
+            print task['localid'] + " : " + parse.stripTags(task['summary']) + "\n\n"
+        except:
+            print task['localid'] + " : " + parse.stripTags(task['summary']).encode('ascii', 'replace') + "\n\n"
     
 def takeCare():
     requestedCommand = getRequestedCommand()
