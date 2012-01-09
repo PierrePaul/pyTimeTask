@@ -1,4 +1,5 @@
-import json, HTMLParser, sys, utils
+import json, parse, sys, utils
+requestedCommand = '';
 
 def commands():
     commands = ['search', 'commands', 'details']
@@ -15,18 +16,17 @@ def details(taskId):
 def formatOutput(jsonObject):
     for task in jsonObject['task']:
         #print json.dumps(task, indent=4)
-        print task['localid'] + " : " + HTMLParser.HTMLParser().unescape(task['summary']) + "\n\n"
+        try:
+            print task['localid'] + " : " + parse.stripTags(task['summary']) + "\n\n"
+        except:
+            print task['localid'] + " : " + parse.stripTags(task['summary']).encode('ascii', 'replace') + "\n\n"
     
 def takeCare():
-    try:
-        requestedCommand = sys.argv[2]
-    except Exception:
-        requestedCommand = raw_input("Command ?\n")
-
+    requestedCommand = getRequestedCommand()
     if requestedCommand == "search":
         try:
             searchStr = sys.argv[3]
-        except:     
+        except:
             searchStr = raw_input("Searching for ?\n")
 
         urlString = search(str(searchStr))
@@ -42,4 +42,16 @@ def takeCare():
     else:
         print "Invalid command"
         sys.exit(1)
-    return urlString    
+    return urlString
+
+def getRequestedCommand():
+    global requestedCommand
+    if requestedCommand == '':
+        try:
+            requestedCommand = sys.argv[2]
+        except Exception:
+            print "Available commands : "
+            print commands()
+            requestedCommand = raw_input("Command ?\n")
+
+    return requestedCommand
