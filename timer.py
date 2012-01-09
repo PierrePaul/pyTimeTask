@@ -1,5 +1,6 @@
 import json, HTMLParser, sys, datetime, time, dateutil.parser, string, urllib2
 import utils, me
+requestedCommand = ''
 
 def commands():
     commands = [ 'current', 'current-id']
@@ -73,12 +74,13 @@ def takeCare():
     return urlString
     
 def getRequestedCommand():
-    
-    try:
-        requestedCommand = sys.argv[2]	
-    except Exception:
-        print "Available commands : "
-        print commands()
-        requestedCommand = raw_input("Command ?\n")
+    global requestedCommand
+    if requestedCommand == '':
+        try:
+            requestedCommand = sys.argv[2]	
+        except Exception:
+            print "Available commands : "
+            print commands()
+            requestedCommand = raw_input("Command ?\n")
         
     return requestedCommand

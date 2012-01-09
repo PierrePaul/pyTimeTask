@@ -1,4 +1,5 @@
 import json, HTMLParser, sys, utils
+requestedCommand = '';
 
 def commands():
     commands = ['search', 'commands', 'details']
@@ -41,10 +42,13 @@ def takeCare():
     return urlString    
 
 def getRequestedCommand():
-    try:
-        requestedCommand = sys.argv[2]
-    except Exception:
-        print "Available commands : "
-        print commands()
-        requestedCommand = raw_input("Command ?\n")
+    global requestedCommand
+    if requestedCommand == '':
+        try:
+            requestedCommand = sys.argv[2]
+        except Exception:
+            print "Available commands : "
+            print commands()
+            requestedCommand = raw_input("Command ?\n")
+
     return requestedCommand
