@@ -19,7 +19,6 @@ class Timer:
         return urlString
 
     def formatOutput(self, jsonObject):
-        #print json.dumps(jsonObject, indent=4)
         requestedCommand = self.getRequestedCommand()
         for uniqueTimer in jsonObject['timer']:
             if uniqueTimer['isrunning'] == 't':
