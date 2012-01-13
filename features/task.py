@@ -40,6 +40,10 @@ class Task:
 
             urlString = self.details(taskLocalId)
 
+        elif requestedCommand == "commands" :
+            print self.commands()
+            sys.exit(1)
+
         else:
             print "Invalid command"
             sys.exit(1)
