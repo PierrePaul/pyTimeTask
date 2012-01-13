@@ -11,7 +11,8 @@ except Exception:
 
 try:
     actionClassName = action[0].capitalize() + action[1:]
-    actionClass = __import__(str(action), fromlist=[actionClassName])
+    action = "features."+str(action)
+    actionClass = __import__(action, fromlist=[actionClassName])
     actionDef = getattr(actionClass, actionClassName)
     actionObject = actionDef()
 

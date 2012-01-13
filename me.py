@@ -13,9 +13,6 @@ def personId():
     jsonObject = utils.startConnection(urlString)
     return jsonObject['personid']
 
-def formatOutput(jsonObject):
-    print json.dumps(jsonObject, indent=4)
-    
 def takeCare():
     try:
         requestedCommand = sys.argv[2]

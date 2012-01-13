@@ -1,4 +1,4 @@
-import json, parse, sys, utils
+import json, sys, utils
 class Task:
     requestedCommand = '';
 
@@ -18,9 +18,9 @@ class Task:
         for task in jsonObject['task']:
             #print json.dumps(task, indent=4)
             try:
-                print task['localid'] + " : " + parse.stripTags(task['summary']) + "\n\n"
+                print task['localid'] + " : " + utils.stripTags(task['summary']) + "\n\n"
             except:
-                print task['localid'] + " : " + parse.stripTags(task['summary']).encode('ascii', 'replace') + "\n\n"
+                print task['localid'] + " : " + utils.stripTags(task['summary']).encode('ascii', 'replace') + "\n\n"
         
     def takeCare(self):
         requestedCommand = self.getRequestedCommand()

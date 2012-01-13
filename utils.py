@@ -1,4 +1,5 @@
 import sys, base64, urllib2, json, getpass
+from HTMLParser import HTMLParser
 
 def initConnection():
     global user
@@ -51,9 +52,25 @@ def postConnection(urlString, data):
     jsonObject = json.load(handle)
     handle.close()
     
-    
 def encodeHeader():
     base64string = base64.encodestring('%s:%s' % (user, password))[:-1]
     authheader =  "Basic %s" % base64string
     return authheader
+
+def stripTags(html):
+    s = PPStripper()
+    s.feed(html)
+    return s.get_data()
+
+def formatOutput(jsonObject):
+    print json.dumps(jsonObject, indent=4)
+    
+class PPStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
 
