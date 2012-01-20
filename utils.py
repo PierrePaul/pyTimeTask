@@ -11,6 +11,7 @@ def initConnection():
 
 def startConnection(urlString):
     urlRequest = url + urlString
+    #formatOutput(urlRequest)
     request = urllib2.Request(urlRequest)
 
     authHeader = encodeHeader()

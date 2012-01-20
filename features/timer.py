@@ -30,9 +30,9 @@ class Timer:
                     timeSpent = str(timeSpent)
                     timeSpent = string.split(timeSpent, '.')
                     try:
-                        print uniqueTimer['tasklocalid'] + ' : ' + parse.stripTags(uniqueTimer['task'])
+                        print uniqueTimer['tasklocalid'] + ' : ' + utils.stripTags(uniqueTimer['task'])
                     except:
-                        print uniqueTimer['tasklocalid'] + ' : ' + parse.stripTags(uniqueTimer['task']).encode('ascii','replace') 
+                        print uniqueTimer['tasklocalid'] + ' : ' + utils.stripTags(uniqueTimer['task']).encode('ascii','replace') 
                     #print uniqueTimer['tasklocalid'] + ' : ' + uniqueTimer['task']
                     print "Been running for " + timeSpent[0]
                     
