@@ -7,7 +7,7 @@ class Task:
         return commands
 
     def search(self, string):
-        urlString = "task/search=" + str(string)
+        urlString = "task/?search=" + str(string)
         return urlString
 
     def details(self, taskId):
