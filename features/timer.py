@@ -8,7 +8,7 @@ class Timer:
         return  commands
 
     def start(self, string):
-        return urlString	
+        return urlString    
 
     def stop(self):
         return urlString
@@ -57,11 +57,10 @@ class Timer:
                 taskLocalId = raw_input("Task id ?\n")
             urlString = self.stop(taskLocalId)
 
-        elif requestedCommand == 'pause':
-            try:
-                self.pause()
+        #elif requestedCommand == 'pause':
+            #try:
+                #self.pause()
                 
-            
         elif requestedCommand == "current":
             personId = me.personId()
             urlString = self.current(personId)
@@ -78,7 +77,7 @@ class Timer:
     def getRequestedCommand(self):
         if self.requestedCommand == '':
             try:
-                self.requestedCommand = sys.argv[2]	
+                self.requestedCommand = sys.argv[2] 
             except Exception:
                 print "Available commands : "
                 print self.commands()
