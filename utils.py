@@ -16,8 +16,8 @@ def startConnection(urlString):
 
     authHeader = encodeHeader()
 
-    request.add_header("Authorization", authHeader)
-    request.add_header("Accept", "application/json")
+    request.add_header('Authorization', authHeader)
+    request.add_header('Accept', 'application/json')
 
     try:
         handle = urllib2.urlopen(request)
@@ -37,11 +37,9 @@ def postConnection(urlString, data):
     data = json.load(data)
     authHeader = encodeHeader()
 
-    print json.dumps(data, indent=4)
-    
     request.add_data(json.dumps(data))
-    request.add_header("Authorization", authHeader)
-    request.add_header("Accept", "application/json")
+    request.add_header('Authorization', authHeader)
+    request.add_header('Accept', 'application/json')
 
     try:
         handle = urllib2.urlopen(request)
@@ -52,7 +50,31 @@ def postConnection(urlString, data):
 
     jsonObject = json.load(handle)
     handle.close()
+    return jsonObject
+
+def putConnection(urlString, data):
+    urlRequest = url + urlString
+    request = urllib2.Request(urlRequest)
+
+    data = json.load(data)
+    authHeader = encodeHeader()
+
+    request.add_data(json.dumps(data))
+    request.add_header('Authorization', authHeader)
+    request.add_header('Content-Type', 'application/json')
     
+    request.get_method = lambda: 'PUT'
+    try:
+        handle = urllib2.urlopen(request)
+    except IOError, e:
+        print "It looks like the username or password is wrong"
+        print e
+        sys.exit(1)
+
+    jsonObject = json.load(handle)
+    handle.close()
+    return jsonObject
+
 def encodeHeader():
     base64string = base64.encodestring('%s:%s' % (user, password))[:-1]
     authheader =  "Basic %s" % base64string

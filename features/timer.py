@@ -1,6 +1,5 @@
 import json, sys, datetime, time, dateutil.parser, string, urllib2
 import utils, me
-
 class Timer:
     requestedCommand = ''
 
@@ -57,6 +56,11 @@ class Timer:
             except:
                 taskLocalId = raw_input("Task id ?\n")
             urlString = self.stop(taskLocalId)
+
+        elif requestedCommand == 'pause':
+            try:
+                self.pause()
+                
             
         elif requestedCommand == "current":
             personId = me.personId()
