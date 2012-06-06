@@ -1,4 +1,5 @@
-import sys, base64, urllib2, json, getpass
+import sys, base64, urllib2, json, getpass, requests
+from requests.auth import HTTPBasicAuth
 from HTMLParser import HTMLParser
 
 def initConnection():
@@ -30,42 +31,35 @@ def startConnection(urlString):
     handle.close()
     return jsonObject
 
-def postConnection(urlString, data):
+def getConnection(urlString):
     urlRequest = url + urlString
-    request = urllib2.Request(urlRequest)
+    try:
+        request = requests.get(urlRequest, auth=(user,password))
+    except IOError, e:
+        print e
+        sys.exit(1)
 
-    data = json.load(data)
-    authHeader = encodeHeader()
+    return request.text
 
-    request.add_data(json.dumps(data))
-    request.add_header('Authorization', authHeader)
-    request.add_header('Accept', 'application/json')
+def postConnection(urlString, infos):
+    urlRequest = url + urlString
+    headers = {'content-type':'application/json'}
 
     try:
-        handle = urllib2.urlopen(request)
+        request = requests.post(urlRequest, data=json.dumps(infos), auth=(user, password), headers=headers)
     except IOError, e:
         print "It looks like the username or password is wrong"
         print e
         sys.exit(1)
 
-    jsonObject = json.load(handle)
-    handle.close()
-    return jsonObject
+    return request.text
 
 def putConnection(urlString, data):
     urlRequest = url + urlString
-    request = urllib2.Request(urlRequest)
+    request = requests.put(urlString, json.dumps(data))
 
-    data = json.load(data)
-    authHeader = encodeHeader()
-
-    request.add_data(json.dumps(data))
-    request.add_header('Authorization', authHeader)
-    request.add_header('Content-Type', 'application/json')
-    
-    request.get_method = lambda: 'PUT'
     try:
-        handle = urllib2.urlopen(request)
+        print "oups"
     except IOError, e:
         print "It looks like the username or password is wrong"
         print e
